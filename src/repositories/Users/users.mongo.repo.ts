@@ -1,4 +1,4 @@
-import { User } from '../../entities/user';
+import { User } from '../../entities/user.js';
 import { URepo } from './users.repo.interface';
 import createDebug from 'debug';
 import { UserModel } from './user.mongo.model';
