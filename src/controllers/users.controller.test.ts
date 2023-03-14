@@ -1,5 +1,5 @@
 import { UserController } from './users.controller';
-import express, { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { User } from '../entities/user';
 import { URepo } from '../repositories/Users/users.repo.interface';
 import { Auth } from '../helpers/auth';

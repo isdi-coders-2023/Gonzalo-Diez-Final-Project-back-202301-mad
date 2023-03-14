@@ -3,8 +3,7 @@ import createDebug from 'debug';
 import { User } from '../entities/user';
 import { HTTPError } from '../errors/error';
 import { URepo } from '../repositories/Users/users.repo.interface';
-import { Auth } from '../helpers/auth';
-import { TokenPayload } from '../helpers/auth';
+import { Auth, TokenPayload } from '../helpers/auth';
 
 const debug = createDebug('Users:Controller');
 
