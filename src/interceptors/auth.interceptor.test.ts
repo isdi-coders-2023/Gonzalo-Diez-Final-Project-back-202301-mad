@@ -1,10 +1,9 @@
 import { Response } from 'express';
 import { User } from '../entities/user';
 import { URepo } from '../repositories/Users/users.repo.interface';
-import { AuthInterceptor } from './auth.interceptor';
+import { AuthInterceptor, RequestPlus } from './auth.interceptor';
 import { Auth } from '../helpers/auth';
 import { HTTPError } from '../errors/error';
-import { RequestPlus } from './auth.interceptor';
 
 jest.mock('../helpers/auth');
 
