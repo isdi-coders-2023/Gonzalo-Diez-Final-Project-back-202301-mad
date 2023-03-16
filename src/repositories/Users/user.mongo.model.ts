@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { User } from '../../entities/user';
 
 const userSchema = new Schema<User>({
-  Age: {
+  age: {
     type: Number,
     required: true,
     unique: false,
@@ -16,7 +16,7 @@ const userSchema = new Schema<User>({
     type: String,
     required: true,
   },
-  Name: {
+  name: {
     type: String,
     required: true,
     unique: false,
@@ -25,7 +25,7 @@ const userSchema = new Schema<User>({
     type: String,
     unique: false,
   },
-  NickName: {
+  nickName: {
     type: String,
     required: true,
     unique: true,
@@ -35,16 +35,22 @@ const userSchema = new Schema<User>({
     required: false,
     unique: false,
   },
-  Addictions: {
-    type: Schema.Types.ObjectId,
-    default: [],
-    ref: 'Addictions',
-  },
-  Conditions: {
-    type: Schema.Types.ObjectId,
-    default: [],
-    ref: 'Conditions',
-  },
+  addictions: [
+    {
+      type: Schema.Types.ObjectId,
+      default: [],
+      ref: 'Addictions',
+      required: false,
+    },
+  ],
+  conditions: [
+    {
+      type: Schema.Types.ObjectId,
+      default: [],
+      ref: 'Conditions',
+      required: false,
+    },
+  ],
 });
 
 userSchema.set('toJSON', {
