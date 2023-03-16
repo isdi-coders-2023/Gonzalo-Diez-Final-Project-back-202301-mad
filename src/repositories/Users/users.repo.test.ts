@@ -31,4 +31,31 @@ describe('Given Users Mongo Repo', () => {
       expect(result).toEqual(mock);
     });
   });
+
+  describe('When the readId method is used', () => {
+    const mockPopulateFunction = (mockPopulateValue: unknown) => ({
+      exec: jest.fn().mockResolvedValue(mockPopulateValue),
+    });
+    test('Then if the findById method resolve value to an object, it should return the object', async () => {
+      const mockPopulateValue = { id: '1' };
+
+      (UserModel.findById as jest.Mock).mockImplementation(() =>
+        mockPopulateFunction(mockPopulateValue)
+      );
+
+      const result = await instance.readId('1');
+      expect(UserModel.findById).toHaveBeenCalled();
+      expect(result).toEqual({ id: '1' });
+    });
+
+    test('Then if the findById method resolve value to null, it should throw an Error', async () => {
+      const mockPopulateValue = null;
+
+      (UserModel.findById as jest.Mock).mockImplementation(() =>
+        mockPopulateFunction(mockPopulateValue)
+      );
+
+      expect(async () => instance.readId('')).rejects.toThrow();
+    });
+  });
 });
