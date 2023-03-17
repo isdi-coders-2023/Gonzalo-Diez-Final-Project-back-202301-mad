@@ -2,9 +2,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const config = {
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  cluster: process.env.DB_CLUSTER,
-  dbName: process.env.DB_NAME,
-  jwtSecret: process.env.SECRET,
+  user: process.env.user,
+  password: encodeURIComponent(process.env.password as string),
+  cluster: process.env.cluster,
+  dbName: process.env.dbName,
+  jwtSecret: process.env.jwtSecret,
 };
