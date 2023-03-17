@@ -4,7 +4,7 @@ import { User } from '../../entities/user';
 const userSchema = new Schema<User>({
   age: {
     type: Number,
-    required: true,
+    required: false,
     unique: false,
   },
   email: {
@@ -18,7 +18,7 @@ const userSchema = new Schema<User>({
   },
   name: {
     type: String,
-    required: true,
+    required: false,
     unique: false,
   },
   profilePic: {
@@ -27,7 +27,7 @@ const userSchema = new Schema<User>({
   },
   nickName: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
   },
   timeWithout: {
