@@ -1,9 +1,8 @@
 import { ARepo } from '../../repositories/Addictions/addictions.repo.interface';
 import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
-import { Addiction, UserAddiction } from '../../entities/addiction';
+import { UserAddiction } from '../../entities/user';
 import { HTTPError } from '../../errors/error';
-import { RequestPlus } from '../../interceptors/auth.interceptor';
 import { URepo } from '../../repositories/Users/users.repo.interface';
 import { User } from '../../entities/user';
 
