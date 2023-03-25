@@ -1,9 +1,10 @@
-import { User } from '../entities/user';
-import { URepo } from '../repositories/Users/users.repo.interface';
+import { User } from '../entities/user.js';
+import { URepo } from '../repositories/Users/users.repo.interface.js';
 import createDebug from 'debug';
 import { Response, NextFunction, Request } from 'express';
-import { HTTPError } from '../errors/error';
-import { Auth, TokenPayload } from '../helpers/auth';
+import { HTTPError } from '../errors/error.js';
+import { Auth, TokenPayload } from '../helpers/auth.js';
+import { UsersMongoRepo } from '../repositories/Users/users.mongo.repo.js';
 
 const debug = createDebug('MH:interceptor');
 
@@ -12,7 +13,7 @@ export interface RequestPlus extends Request {
 }
 
 export class AuthInterceptor {
-  constructor(public repoUsers: URepo<User>) {
+  constructor(public repoUsers: UsersMongoRepo) {
     debug('Instantiate');
   }
 
