@@ -1,5 +1,3 @@
-import { User } from '../entities/user.js';
-import { URepo } from '../repositories/Users/users.repo.interface.js';
 import createDebug from 'debug';
 import { Response, NextFunction, Request } from 'express';
 import { HTTPError } from '../errors/error.js';

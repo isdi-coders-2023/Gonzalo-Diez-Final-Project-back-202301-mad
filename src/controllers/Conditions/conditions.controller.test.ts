@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { ConditionsController } from './conditions.controller';
 import { ConditionsMongoRepo } from '../../repositories/Conditions/conditions.mongo.repo';
-import { UsersMongoRepo } from '../../repositories/Users/users.mongo.repo';
 
 describe('Given Addictions controller', () => {
   const repo: ConditionsMongoRepo = {

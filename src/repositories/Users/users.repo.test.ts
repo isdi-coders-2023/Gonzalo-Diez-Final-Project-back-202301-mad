@@ -1,8 +1,6 @@
 import { UsersMongoRepo } from './users.mongo.repo.js';
 import { UserModel } from './user.mongo.model.js';
-import { Addiction } from '../../entities/addiction.js';
 import { User } from '../../entities/user.js';
-import { Condition } from '../../entities/condition.js';
 import { HTTPError } from '../../errors/error.js';
 
 jest.mock('./user.mongo.model.js');
@@ -73,10 +71,6 @@ describe('Given Users Mongo Repo', () => {
         id: '1',
         addictions: [],
       };
-      const mockAddiction = {
-        id: '1',
-        name: 'tobacco',
-      } as unknown as Addiction;
 
       const mockUserAddiction = {
         addictionId: '1',
@@ -190,10 +184,6 @@ describe('Given Users Mongo Repo', () => {
         id: '1',
         conditions: [],
       };
-      const mockCondition = {
-        id: '1',
-        name: 'depression',
-      } as unknown as Condition;
 
       const mockConditionUser = {
         conditionId: '1',

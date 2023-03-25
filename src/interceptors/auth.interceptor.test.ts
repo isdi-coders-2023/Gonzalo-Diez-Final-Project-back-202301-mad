@@ -1,6 +1,4 @@
 import { Response } from 'express';
-import { User } from '../entities/user.js';
-import { URepo } from '../repositories/Users/users.repo.interface.js';
 import { AuthInterceptor, RequestPlus } from './auth.interceptor.js';
 import { Auth } from '../helpers/auth.js';
 import { HTTPError } from '../errors/error.js';
