@@ -207,8 +207,8 @@ describe('Given the user controller', () => {
       expect(next).toHaveBeenCalled();
     });
   });
-  describe('When we use the addCondition method', () => {
-    test('Then, it should return user condition data when successfully added', async () => {
+  describe('When we use the addCondition function', () => {
+    test('Then, it give back user condition that is  successfully added to the user', async () => {
       const userId = '1';
       const condition = 'depression';
       const timeConsuming = 2;
@@ -260,8 +260,8 @@ describe('Given the user controller', () => {
       expect(next).toHaveBeenCalled();
     });
   });
-  describe('When we use the deleteCondition method', () => {
-    test('Then, it should call the repo method, and should return the resp', async () => {
+  describe('When we call the deleteCondition function', () => {
+    test('Then, it should use the repo method, and it should make the resp', async () => {
       const userMock = {
         id: '1',
         conditions: ['1'],
