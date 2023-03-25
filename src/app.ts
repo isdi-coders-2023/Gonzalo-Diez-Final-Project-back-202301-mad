@@ -4,6 +4,8 @@ import cors from 'cors';
 import createDebug from 'debug';
 import { CustomError } from './errors/error.js';
 import { UsersRouter } from './routers/users.routers.js';
+import { AddictionsRouter } from './routers/addictions.routers.js';
+import { ConditionsRouter } from './routers/conditions.routers.js';
 
 const debug = createDebug('MH:app');
 
@@ -19,6 +21,8 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 app.use('/users', UsersRouter);
+app.use('/addictions', AddictionsRouter);
+app.use('/conditions', ConditionsRouter);
 
 app.get('/', (_req, resp) => {
   resp.json({
