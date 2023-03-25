@@ -2,7 +2,7 @@ import { ConditionModel } from './conditions.mongo.model';
 import { Condition } from '../../entities/condition';
 import { ConditionsMongoRepo } from './conditions.mongo.repo';
 
-jest.mock('./Conditions.mongo.model.js');
+jest.mock('./conditions.mongo.model.ts');
 
 describe('Given the repository ConditionsMongoRepo', () => {
   const repo = ConditionsMongoRepo.getInstance();
