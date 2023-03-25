@@ -6,7 +6,7 @@ describe('Given the dbconnect function', () => {
     test('Then it should call the mongoose.connect', async () => {
       const result = await dbConnect();
       expect(typeof result).toBe(typeof mongoose);
-      expect(mongoose.connection.db.databaseName).toContain('test');
+      expect(mongoose.connection.db.databaseName).toContain('yohealth');
       mongoose.disconnect();
     });
   });
