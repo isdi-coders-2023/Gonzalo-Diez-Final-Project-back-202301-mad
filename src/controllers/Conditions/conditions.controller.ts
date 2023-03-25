@@ -3,20 +3,12 @@ import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
 import { Condition } from '../../entities/condition';
 import { HTTPError } from '../../errors/error';
-import { RequestPlus } from '../../interceptors/auth.interceptor';
-import { URepo } from '../../repositories/Users/users.repo.interface';
-import { User } from '../../entities/user';
-import { ConditionsMongoRepo } from '../../repositories/Conditions/conditions.mongo.repo';
 
 const debug = createDebug('MH:conditions-controller');
 
 export class ConditionsController {
-  constructor(
-    public ConditionsMongoRepo: CRepo<Condition>,
-    public userRepo: URepo<User>
-  ) {
+  constructor(public ConditionsMongoRepo: CRepo<Condition>) {
     this.ConditionsMongoRepo = ConditionsMongoRepo;
-    this.userRepo = userRepo;
   }
 
   async toLoad(req: Request, resp: Response, next: NextFunction) {
