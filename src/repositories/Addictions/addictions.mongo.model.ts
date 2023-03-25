@@ -7,13 +7,14 @@ const AddictionSchema = new Schema<Addiction>({
     required: true,
     unique: true,
   },
-  causes: [
-    {
-      type: String,
-      required: false,
-      unique: false,
-    },
-  ],
+  description: {
+    type: String,
+    required: true,
+    unique: false,
+  },
+  img: {
+    type: String,
+  },
 });
 
 AddictionSchema.set('toJSON', {

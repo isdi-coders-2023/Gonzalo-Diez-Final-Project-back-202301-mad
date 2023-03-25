@@ -1,22 +1,29 @@
-import { ARepo } from '../../repositories/Addictions/addictions.repo.interface';
+import { CRepo } from '../../repositories/Conditions/conditions.repo.interface';
 import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
-import { HTTPError } from '../../errors/error.js';
+import { Condition } from '../../entities/condition';
+import { HTTPError } from '../../errors/error';
+import { RequestPlus } from '../../interceptors/auth.interceptor';
+import { URepo } from '../../repositories/Users/users.repo.interface';
+import { User } from '../../entities/user';
+import { ConditionsMongoRepo } from '../../repositories/Conditions/conditions.mongo.repo';
 
-import { Addiction } from '../../entities/addiction';
+const debug = createDebug('MH:conditions-controller');
 
-const debug = createDebug('MH:addictions-controller');
-
-export class AddictionsController {
-  constructor(public AddictionsRepo: ARepo<Addiction>) {
-    this.AddictionsRepo = AddictionsRepo;
+export class ConditionsController {
+  constructor(
+    public ConditionsMongoRepo: CRepo<Condition>,
+    public userRepo: URepo<User>
+  ) {
+    this.ConditionsMongoRepo = ConditionsMongoRepo;
+    this.userRepo = userRepo;
   }
 
   async toLoad(req: Request, resp: Response, next: NextFunction) {
     try {
-      const data = await this.AddictionsRepo.read();
+      const data = await this.ConditionsMongoRepo.read();
       resp.json({
-        results: data,
+        result: data,
       });
     } catch (error) {
       next(error);
@@ -25,7 +32,7 @@ export class AddictionsController {
 
   async toLoadID(req: Request, resp: Response, next: NextFunction) {
     try {
-      const data = await this.AddictionsRepo.readId(req.params.id);
+      const data = await this.ConditionsMongoRepo.readId(req.params.id);
       if (data) {
         resp.json({
           result: data,
@@ -43,7 +50,7 @@ export class AddictionsController {
       if (!req.params.id)
         throw new HTTPError(404, 'Not found', 'Params ID was not found');
 
-      await this.AddictionsRepo.delete(req.params.id);
+      await this.ConditionsMongoRepo.delete(req.params.id);
 
       resp.json({
         result: [],
@@ -58,7 +65,7 @@ export class AddictionsController {
       if (!req.params.id)
         throw new HTTPError(404, 'Not found', 'Params ID was not found');
       req.body.id = req.params.id;
-      const data = await this.AddictionsRepo.update(req.body);
+      const data = await this.ConditionsMongoRepo.update(req.body);
       resp.json({
         results: [data],
       });

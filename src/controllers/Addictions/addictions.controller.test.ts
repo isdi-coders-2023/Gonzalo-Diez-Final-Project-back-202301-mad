@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { AddictionsController } from './addictions.controller';
 import { AddictionsMongoRepo } from '../../repositories/Addictions/addictions.mongo.repo';
-import { UsersMongoRepo } from '../../repositories/Users/users.mongo.repo';
 
 describe('Given Addictions controller', () => {
   const repo: AddictionsMongoRepo = {
@@ -10,8 +9,6 @@ describe('Given Addictions controller', () => {
     update: jest.fn(),
     delete: jest.fn(),
   };
-
-  const userRepo = {} as UsersMongoRepo;
 
   const req = {
     body: {},
@@ -24,7 +21,7 @@ describe('Given Addictions controller', () => {
 
   const next = jest.fn();
 
-  const controller = new AddictionsController(repo, userRepo);
+  const controller = new AddictionsController(repo);
 
   describe('When toLoad method is called', () => {
     test('Then, it should return the data if there isnt any problem', async () => {
