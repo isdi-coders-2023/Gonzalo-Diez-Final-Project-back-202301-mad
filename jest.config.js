@@ -12,6 +12,7 @@ export default {
     'users.routers.ts',
     'generalAddictions.mongo.model.ts',
     'conditions.mongo.model.ts',
+    'addictions.routers.ts',
   ],
   resolver: 'jest-ts-webcompat-resolver',
   collectCoverageFrom: ['src/**/*.ts'],
@@ -27,5 +28,6 @@ export default {
     'addictions.mongo.model.ts',
     'generalAddictions.mongo.model.ts',
     'conditions.mongo.model.ts',
+    'addictions.routers.ts',
   ],
 };
