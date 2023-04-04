@@ -1,16 +1,21 @@
 import { Response } from 'express';
-import { User } from '../entities/user';
-import { URepo } from '../repositories/Users/users.repo.interface';
-import { AuthInterceptor, RequestPlus } from './auth.interceptor';
-import { Auth } from '../helpers/auth';
-import { HTTPError } from '../errors/error';
+import { AuthInterceptor, RequestPlus } from './auth.interceptor.js';
+import { Auth } from '../helpers/auth.js';
+import { HTTPError } from '../errors/error.js';
+import { UsersMongoRepo } from '../repositories/Users/users.mongo.repo.js';
 
 jest.mock('../helpers/auth');
 
 describe('Given AuthInterceptor class', () => {
-  const repo: URepo<User> = {
+  const repo: UsersMongoRepo = {
     create: jest.fn(),
     search: jest.fn(),
+    readId: jest.fn(),
+    addAddiction: jest.fn(),
+    deleteAddiction: jest.fn(),
+    update: jest.fn(),
+    addCondition: jest.fn(),
+    deleteCondition: jest.fn(),
   };
   const interceptor = new AuthInterceptor(repo);
 

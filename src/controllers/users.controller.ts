@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import createDebug from 'debug';
-import { User } from '../entities/user';
-import { HTTPError } from '../errors/error';
-import { URepo } from '../repositories/Users/users.repo.interface';
-import { Auth, TokenPayload } from '../helpers/auth';
+import { User } from '../entities/user.js';
+import { HTTPError } from '../errors/error.js';
+import { URepo } from '../repositories/Users/users.repo.interface.js';
+import { Auth, TokenPayload } from '../helpers/auth.js';
+import { RequestPlus } from '../interceptors/auth.interceptor.js';
 
-const debug = createDebug('Users:Controller');
+const debug = createDebug('MH:Controller');
 
 export class UserController {
   constructor(public userRepo: URepo<User>) {
@@ -25,7 +26,7 @@ export class UserController {
 
       resp.status(201);
       resp.json({
-        data,
+        results: [data],
       });
     } catch (error) {
       next(error);
@@ -35,10 +36,9 @@ export class UserController {
   async login(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('POST: LogIn');
-
       const data = await this.userRepo.search({
         key: 'email',
-        value: 'req.body.email',
+        value: req.body.email,
       });
 
       if (!data.length)
@@ -58,9 +58,111 @@ export class UserController {
 
       const token = Auth.createJWT(payload);
 
+      debug(token);
+
       resp.status(202);
       resp.json({
-        token,
+        results: [token],
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async addAddiction(req: RequestPlus, resp: Response, next: NextFunction) {
+    try {
+      const userId = req.info?.id;
+      if (typeof userId !== 'string')
+        throw new HTTPError(404, 'Not found', 'Token was not found');
+      const { addiction } = req.body;
+      const { timeConsuming } = req.body;
+      const { cause } = req.body;
+      const userAddiction = await this.userRepo.addAddiction(
+        userId,
+        addiction,
+        timeConsuming,
+        cause
+      );
+
+      const updatedUser = await this.userRepo.update(userAddiction);
+
+      resp.status(202);
+      resp.json({
+        results: [updatedUser],
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteAddiction(req: RequestPlus, resp: Response, next: NextFunction) {
+    try {
+      const userId = req.info?.id;
+      const index = parseInt(req.params.index, 10);
+
+      if (typeof userId !== 'string')
+        throw new HTTPError(404, 'Not found', 'Token was not found');
+
+      const user = await this.userRepo.deleteAddiction(userId, index);
+      const updatedUser = await this.userRepo.update(user);
+      resp.status(204);
+      resp.json(updatedUser);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async addCondition(req: RequestPlus, resp: Response, next: NextFunction) {
+    try {
+      const userId = req.info?.id;
+      if (typeof userId !== 'string')
+        throw new HTTPError(404, 'Not found', 'Token was not found');
+      const { condition } = req.body;
+      const { timeConsuming } = req.body;
+      const { cause } = req.body;
+      const userCondition = await this.userRepo.addCondition(
+        userId,
+        condition,
+        timeConsuming,
+        cause
+      );
+
+      const updatedUser = await this.userRepo.update(userCondition);
+
+      resp.status(202);
+      resp.json({
+        results: [updatedUser],
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteCondition(req: RequestPlus, resp: Response, next: NextFunction) {
+    try {
+      const userId = req.info?.id;
+      const index = parseInt(req.params.index, 10);
+      if (typeof userId !== 'string')
+        throw new HTTPError(404, 'Not found', 'Token was not found');
+
+      const user = await this.userRepo.deleteCondition(userId, index);
+      const updatedUser = await this.userRepo.update(user);
+      resp.status(204);
+      resp.json(updatedUser);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getUserById(req: RequestPlus, resp: Response, next: NextFunction) {
+    try {
+      if (!req.info?.id)
+        throw new HTTPError(498, 'Not found', 'Token wasnt found');
+      const { id } = req.info;
+      const data = await this.userRepo.readId(id);
+      resp.status(202);
+      resp.json({
+        results: [data],
       });
     } catch (error) {
       next(error);

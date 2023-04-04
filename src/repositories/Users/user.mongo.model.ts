@@ -4,7 +4,6 @@ import { User } from '../../entities/user';
 const userSchema = new Schema<User>({
   age: {
     type: Number,
-    required: false,
     unique: false,
   },
   email: {
@@ -18,7 +17,6 @@ const userSchema = new Schema<User>({
   },
   name: {
     type: String,
-    required: false,
     unique: false,
   },
   profilePic: {
@@ -27,28 +25,42 @@ const userSchema = new Schema<User>({
   },
   nickName: {
     type: String,
-    required: false,
-    unique: true,
+    unique: false,
   },
   timeWithout: {
-    type: Date,
-    required: false,
+    type: String,
     unique: false,
   },
   addictions: [
     {
-      type: Schema.Types.ObjectId,
-      default: [],
-      ref: 'Addictions',
-      required: false,
+      addictionId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Addiction',
+      },
+      timeConsuming: {
+        type: Date,
+        required: true,
+      },
+      cause: {
+        type: String,
+        required: true,
+      },
     },
   ],
   conditions: [
     {
-      type: Schema.Types.ObjectId,
-      default: [],
-      ref: 'Conditions',
-      required: false,
+      Condition: {
+        type: Schema.Types.ObjectId,
+        ref: 'Condition',
+      },
+      timeConsuming: {
+        type: Date,
+        required: true,
+      },
+      cause: {
+        type: String,
+        required: true,
+      },
     },
   ],
 });

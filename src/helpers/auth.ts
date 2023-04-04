@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import { HTTPError } from '../errors/error.js';
 
 export interface TokenPayload extends jwt.JwtPayload {
-  id: string;
+  id: string | undefined;
   email: string;
 }
 

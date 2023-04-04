@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { Addiction } from '../../entities/addiction';
+import { Condition } from '../../entities/condition';
 
-const AddictionSchema = new Schema<Addiction>({
+const ConditionsSchema = new Schema<Condition>({
   name: {
     type: String,
     required: true,
@@ -17,12 +17,16 @@ const AddictionSchema = new Schema<Addiction>({
   },
 });
 
-AddictionSchema.set('toJSON', {
+ConditionsSchema.set('toJSON', {
   transform(_document, returnedObject) {
     returnedObject.id = returnedObject._id;
-    delete returnedObject.__v;
+    delete returnedObject.__V;
     delete returnedObject._id;
   },
 });
 
-export const AddictionModel = model('Addiction', AddictionSchema, 'addictions');
+export const ConditionModel = model(
+  'Condition',
+  ConditionsSchema,
+  'conditions'
+);
