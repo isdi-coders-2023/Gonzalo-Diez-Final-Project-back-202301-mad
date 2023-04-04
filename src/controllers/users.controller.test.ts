@@ -15,6 +15,7 @@ describe('Given the user controller', () => {
     search: jest.fn(),
     addAddiction: jest.fn(),
     deleteAddiction: jest.fn(),
+    readId: jest.fn(),
   } as unknown as URepo<User>;
 
   const controller = new UserController(repoMock);
@@ -297,6 +298,32 @@ describe('Given the user controller', () => {
 
       await controller.deleteCondition(req, resp, next);
 
+      expect(next).toHaveBeenCalled();
+    });
+  });
+  describe('When we call the getUserById', () => {
+    test('Then, it should call the repo method and return the resp', async () => {
+      const req = {
+        info: {
+          id: '124',
+        },
+      } as unknown as RequestPlus;
+
+      await controller.getUserById(req, resp, next);
+      (repoMock.readId as jest.Mock).mockReturnValue(['test']);
+      expect(repoMock.readId).toHaveBeenCalled();
+      expect(resp.status).toHaveBeenCalled();
+      expect(resp.json).toHaveBeenCalled();
+    });
+    test('Then, if there is no token, it should call next', async () => {
+      const req = {
+        info: {
+          id: undefined,
+        },
+      } as unknown as RequestPlus;
+
+      await controller.getUserById(req, resp, next);
+      (repoMock.readId as jest.Mock).mockReturnValue([]);
       expect(next).toHaveBeenCalled();
     });
   });

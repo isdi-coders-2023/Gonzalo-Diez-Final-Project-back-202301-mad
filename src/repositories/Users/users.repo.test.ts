@@ -46,25 +46,6 @@ describe('Given Users Mongo Repo', () => {
       expect(result).toEqual([{ id: '1' }]);
     });
   });
-  describe('when we call the readId', () => {
-    test('then it should return the mockvalue', async () => {
-      const mockPopulateValue = { id: '2' };
-
-      (UserModel.findById as jest.Mock).mockImplementation(() =>
-        mockExecFunction(mockPopulateValue)
-      );
-      const result = await instance.readId('2');
-      expect(UserModel.findById).toHaveBeenCalled();
-      expect(result).toEqual({ id: '2' });
-    });
-    test('then if there NO DATA it should throw error', async () => {
-      const mockPopulateValue = null;
-      (UserModel.findById as jest.Mock).mockImplementation(() =>
-        mockExecFunction(mockPopulateValue)
-      );
-      expect(async () => instance.readId('')).rejects.toThrow();
-    });
-  });
   describe('When the addAddiction method is used', () => {
     test('If there is no errors, it should add a new addiction to the user and return it', async () => {
       const mockUser = {

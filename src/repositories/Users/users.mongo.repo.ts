@@ -17,11 +17,15 @@ export class UsersMongoRepo implements URepo<User> {
     return UsersMongoRepo.instance;
   }
 
-  async readId(id: string): Promise<User> {
-    debug('read ID');
-    const data = await UserModel.findById(id).exec();
-    if (!data) throw new HTTPError(404, 'Not found', 'Id not found');
-    return data;
+  async readId(userId: string): Promise<User> {
+    const user = await UserModel.findById(userId)
+      .populate('addictions.addictionId')
+      .populate('conditions.Condition')
+      .exec();
+
+    if (!user) throw new Error('User not found');
+
+    return user;
   }
 
   async create(user: Partial<User>): Promise<User> {

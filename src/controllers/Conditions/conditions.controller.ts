@@ -2,7 +2,7 @@ import { CRepo } from '../../repositories/Conditions/conditions.repo.interface';
 import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
 import { Condition } from '../../entities/condition';
-import { HTTPError } from '../../errors/error';
+import { HTTPError } from '../../errors/error.js';
 
 const debug = createDebug('MH:conditions-controller');
 
@@ -15,7 +15,7 @@ export class ConditionsController {
     try {
       const data = await this.ConditionsMongoRepo.read();
       resp.json({
-        result: data,
+        results: data,
       });
     } catch (error) {
       next(error);

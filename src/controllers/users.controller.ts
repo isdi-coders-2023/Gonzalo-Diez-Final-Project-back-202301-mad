@@ -153,4 +153,19 @@ export class UserController {
       next(error);
     }
   }
+
+  async getUserById(req: RequestPlus, resp: Response, next: NextFunction) {
+    try {
+      if (!req.info?.id)
+        throw new HTTPError(498, 'Not found', 'Token wasnt found');
+      const { id } = req.info;
+      const data = await this.userRepo.readId(id);
+      resp.status(202);
+      resp.json({
+        results: [data],
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

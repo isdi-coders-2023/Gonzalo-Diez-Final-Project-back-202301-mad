@@ -1,10 +1,10 @@
 import { CRepo } from './conditions.repo.interface';
 import { Condition } from '../../entities/condition';
 import createDebug from 'debug';
-import { HTTPError } from '../../errors/error';
-import { ConditionModel } from './conditions.mongo.model';
+import { HTTPError } from '../../errors/error.js';
+import { ConditionModel } from './conditions.mongo.model.js';
 
-const debug = createDebug('MH:mongo:AddictionsRepo');
+const debug = createDebug('MH:mongo:ConditionsRepo');
 
 export class ConditionsMongoRepo implements CRepo<Condition> {
   private static instance: ConditionsMongoRepo;
